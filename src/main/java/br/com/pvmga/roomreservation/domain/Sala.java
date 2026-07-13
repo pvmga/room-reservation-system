@@ -6,7 +6,8 @@ public class Sala {
     private Integer capacidade;
     private Boolean ativa;
 
-    public Sala(String nome, Integer capacidade) {
+    public Sala(Long id, String nome, Integer capacidade) {
+        this.id = id;
         this.nome = nome;
         this.capacidade = capacidade;
         this.ativa = true;

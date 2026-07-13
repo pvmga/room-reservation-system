@@ -9,13 +9,13 @@ public class RoomReservationApplication {
     public static void main(String[] args) {
         List<Sala> salas = new ArrayList<>();
 
-        // sala 1
-        Sala sala = new Sala("Sala Azul", 20);
-        salas.add(sala);
+        long proximoId = 1L;
 
-        // sala 2
-        Sala sala2 = new Sala("Sala Verde", 21);
-        salas.add(sala2);
+        Sala salaAzul = new Sala(proximoId++,"Sala Azul", 20);
+        Sala salaVerde = new Sala(proximoId++,"Sala Verde", 21);
+
+        salas.add(salaAzul);
+        salas.add(salaVerde);
 
         System.out.println(salas);
 

@@ -29,6 +29,14 @@ public class Sala {
         return id;
     }
 
+    public void setAtiva(Boolean ativa) {
+        this.ativa = ativa;
+    }
+
+    public void desativar() {
+        this.ativa = false;
+    }
+
     @Override
     public String toString() {
         return "Sala{" +

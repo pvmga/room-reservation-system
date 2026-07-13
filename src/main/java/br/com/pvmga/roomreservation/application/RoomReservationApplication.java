@@ -1,23 +1,35 @@
 package br.com.pvmga.roomreservation.application;
 
 import br.com.pvmga.roomreservation.domain.Sala;
+import br.com.pvmga.roomreservation.repository.SalaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomReservationApplication {
     public static void main(String[] args) {
-        List<Sala> salas = new ArrayList<>();
+
+        SalaRepository salaRepository = new SalaRepository();
 
         long proximoId = 1L;
 
-        Sala salaAzul = new Sala(proximoId++,"Sala Azul", 20);
-        Sala salaVerde = new Sala(proximoId++,"Sala Verde", 21);
+        salaRepository.salvar(new Sala(proximoId++, "Sala Azul", 20));
+        salaRepository.salvar(new Sala(proximoId++, "Sala Verde", 21));
 
-        salas.add(salaAzul);
-        salas.add(salaVerde);
+        salaRepository
+                .listar()
+                .forEach(System.out::println);
 
-        System.out.println(salas);
+        // buscar por id
+        Sala salaBuscadaPorId = salaRepository.buscarPorId(1L);
+        System.out.println(salaBuscadaPorId);
 
+        // buscar por nome
+        Sala salaBuscadaPorNome = salaRepository.buscarPorNome("Sala Verde");
+        System.out.println(salaBuscadaPorNome);
+
+        // desativar por id
+        Sala salaDesativada = salaRepository.desativarSala(2L);
+        System.out.println(salaDesativada);
     }
 }

@@ -7,6 +7,14 @@ public class Sala {
     private Boolean ativa;
 
     public Sala(String nome, Integer capacidade) {
+        if (nome.isBlank()) {
+            throw new IllegalArgumentException("Nome vazio");
+        }
+
+        if  (capacidade == null || capacidade <= 0) {
+            throw new IllegalArgumentException("Capacidade menor que ou igual a zero ou nula");
+        }
+
         this.nome = nome;
         this.capacidade = capacidade;
         this.ativa = true;
@@ -28,15 +36,24 @@ public class Sala {
         return id;
     }
 
-    public void setAtiva(Boolean ativa) {
-        this.ativa = ativa;
-    }
+    public void atribuirId(Long id) {
+        if (this.id != null) {
+            throw  new IllegalArgumentException("A sala já possui um ID.");
+        }
 
-    public void setId(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("O ID deve ser mairo que zero.");
+        }
+
         this.id = id;
     }
 
     public void desativar() {
+
+        if (!this.ativa) {
+            throw new IllegalStateException("A sala já está desativada.");
+        }
+
         this.ativa = false;
     }
 

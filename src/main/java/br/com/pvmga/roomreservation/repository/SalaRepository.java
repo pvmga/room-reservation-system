@@ -12,7 +12,8 @@ public class SalaRepository {
     private final List<Sala> salas = new ArrayList<>();
 
     public Sala salvar(Sala sala) {
-        sala.setId(this.proximoId++);
+        sala.atribuirId(proximoId);
+        this.proximoId++;
         salas.add(sala);
 
         return sala;
@@ -37,6 +38,7 @@ public class SalaRepository {
     }
 
     public Sala desativarSala(Long id) {
+
         Sala sala = buscarPorId(id);
 
         if (sala == null) {

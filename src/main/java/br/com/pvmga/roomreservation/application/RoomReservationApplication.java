@@ -71,7 +71,9 @@ public class RoomReservationApplication {
 
         // desativar por id
         Sala salaDesativada = salaRepository.desativarSala(1L);
-        System.out.println(salaDesativada);
+        System.out.println("Sala desativada: " + salaDesativada);
+        Sala salaDesativada2 = salaRepository.desativarSala(1L);
+        System.out.println("Sala desativada: " + salaDesativada2);
 
     }
 }

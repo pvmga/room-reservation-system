@@ -7,7 +7,6 @@ public class Sala {
     private Boolean ativa;
 
     public Sala(String nome, Integer capacidade) {
-        this.id = id;
         this.nome = nome;
         this.capacidade = capacidade;
         this.ativa = true;

@@ -28,4 +28,16 @@ public class SalaService {
         return salaRepository.listar();
     }
 
+    public Sala buscarPorId(Long id) {
+        return salaRepository.buscarPorId(id);
+    }
+
+    public Sala buscarPorNome(String nome) {
+        return salaRepository.buscarPorNome(nome);
+    }
+
+    public Sala desativarSala(Long id) {
+        return salaRepository.desativarSala(id);
+    }
+
 }

@@ -3,6 +3,8 @@ package br.com.pvmga.roomreservation.service;
 import br.com.pvmga.roomreservation.domain.Sala;
 import br.com.pvmga.roomreservation.repository.SalaRepository;
 
+import java.util.List;
+
 public class SalaService {
 
     private final SalaRepository salaRepository;
@@ -19,6 +21,11 @@ public class SalaService {
         }
 
         return salaRepository.salvar(sala);
+    }
+
+    public List<Sala> listarSalas() {
+
+        return salaRepository.listar();
     }
 
 }

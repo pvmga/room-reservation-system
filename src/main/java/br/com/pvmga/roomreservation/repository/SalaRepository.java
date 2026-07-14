@@ -7,10 +7,15 @@ import java.util.List;
 
 public class SalaRepository {
 
+    private Long proximoId = 1L;
+
     private final List<Sala> salas = new ArrayList<>();
 
-    public void salvar(Sala sala) {
+    public Sala salvar(Sala sala) {
+        sala.setId(this.proximoId++);
         salas.add(sala);
+
+        return sala;
     }
 
     public List<Sala> listar() {

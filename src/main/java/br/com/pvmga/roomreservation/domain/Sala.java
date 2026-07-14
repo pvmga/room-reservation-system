@@ -6,7 +6,7 @@ public class Sala {
     private Integer capacidade;
     private Boolean ativa;
 
-    public Sala(Long id, String nome, Integer capacidade) {
+    public Sala(String nome, Integer capacidade) {
         this.id = id;
         this.nome = nome;
         this.capacidade = capacidade;
@@ -31,6 +31,10 @@ public class Sala {
 
     public void setAtiva(Boolean ativa) {
         this.ativa = ativa;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void desativar() {

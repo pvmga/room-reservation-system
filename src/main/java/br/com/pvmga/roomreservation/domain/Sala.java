@@ -7,7 +7,7 @@ public class Sala {
     private Boolean ativa;
 
     public Sala(String nome, Integer capacidade) {
-        if (nome.isBlank()) {
+        if (nome == null || nome.isBlank()) {
             throw new IllegalArgumentException("Nome vazio");
         }
 

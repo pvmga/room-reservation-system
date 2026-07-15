@@ -3,6 +3,7 @@ package br.com.pvmga.roomreservation.repository;
 import br.com.pvmga.roomreservation.domain.Sala;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class SalaRepository {
@@ -50,6 +51,7 @@ public class SalaRepository {
         return salas.stream()
                 .filter(Sala::getAtiva)
                 .filter(sala -> sala.getCapacidade() >= capacidadeMinima)
+                .sorted(Comparator.comparing(Sala::getCapacidade))
                 .toList();
     }
 

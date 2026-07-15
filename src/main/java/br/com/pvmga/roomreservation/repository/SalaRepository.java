@@ -55,4 +55,14 @@ public class SalaRepository {
                 .toList();
     }
 
+    public List<Sala> buscarSalasDisponiveisPorIntervaloDeCapacidade(
+            Integer capacidadeMinima,
+            Integer capacidadeMaxima
+    ) {
+        return salas.stream()
+                .filter(Sala::getAtiva)
+                .filter(sala -> sala.getCapacidade() >= capacidadeMinima && sala.getCapacidade() <= capacidadeMaxima)
+                .sorted(Comparator.comparing(Sala::getCapacidade))
+                .toList();
+    }
 }

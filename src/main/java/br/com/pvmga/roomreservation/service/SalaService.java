@@ -112,4 +112,32 @@ public class SalaService {
         return salaRepository.buscarSalasDisponiveisPorCapacidade(capacidadeMinima);
     }
 
+    public List<Sala> buscarSalasDisponiveisPorIntervaloDeCapacidade(
+            Integer capacidadeMinima,
+            Integer capacidadeMaxima
+    ) {
+        if (capacidadeMinima == null || capacidadeMinima <= 0) {
+            throw new IllegalArgumentException(
+                    "A capacidade mínima deve ser maior que zero."
+            );
+        }
+
+        if (capacidadeMaxima == null || capacidadeMaxima <= 0) {
+            throw new IllegalArgumentException(
+                    "A capacidade máxima deve ser maior que zero."
+            );
+        }
+
+        if (capacidadeMinima > capacidadeMaxima) {
+            throw new IllegalArgumentException(
+                    "A capacidade mínima não pode ser maior que a capacidade máxima."
+            );
+        }
+
+        return salaRepository.buscarSalasDisponiveisPorIntervaloDeCapacidade(
+                capacidadeMinima,
+                capacidadeMaxima
+        );
+    }
+
 }

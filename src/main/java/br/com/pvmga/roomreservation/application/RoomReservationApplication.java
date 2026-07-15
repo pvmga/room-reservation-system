@@ -60,7 +60,7 @@ public class RoomReservationApplication {
         Sala salaReativada = salaService.reativarSala(1L);
         //System.out.println("Sala reativada: " + salaReativada);
 
-//        Sala salaReativadaNovamente = salaService.reativarSala(1L);
+        Sala salaReativadaNovamente = salaService.reativarSala(2L);
 //        System.out.println(salaReativadaNovamente);
 
 
@@ -74,7 +74,12 @@ public class RoomReservationApplication {
             salas.forEach(System.out::println);
         }
 
-        List<Sala> buscarSalasDisponiveisPorCapacidade = salaService.buscarSalasDisponiveisPorCapacidade(19);
+        List<Sala> buscarSalasDisponiveisPorCapacidade =
+                salaService.buscarSalasDisponiveisPorCapacidade(19);
         System.out.println(buscarSalasDisponiveisPorCapacidade);
+
+        List<Sala> buscarSalasDisponiveisPorIntervaloDeCapacidade =
+                salaService.buscarSalasDisponiveisPorIntervaloDeCapacidade(20, 21);
+        System.out.println(buscarSalasDisponiveisPorIntervaloDeCapacidade);
     }
 }

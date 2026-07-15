@@ -26,7 +26,8 @@ public class SalaRepository {
 //    }
 
     public List<Sala> listar() {
-        return new ArrayList<>(salas);
+        //return new ArrayList<>(salas);
+        return List.copyOf(salas);
     }
 
     public Sala buscarPorId(Long id) {

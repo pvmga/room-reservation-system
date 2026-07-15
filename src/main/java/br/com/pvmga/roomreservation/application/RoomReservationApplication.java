@@ -66,6 +66,7 @@ public class RoomReservationApplication {
 
         // listar todas as salas
         List<Sala> salas = salaService.listarSalas();
+        //salas.clear();
 
         if (salas.isEmpty()) {
             System.out.println("Nenhuma sala cadastrada");

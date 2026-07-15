@@ -37,7 +37,47 @@ public class SalaService {
     }
 
     public Sala desativarSala(Long id) {
-        return salaRepository.desativarSala(id);
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("O ID deve ser maior que zero.");
+        }
+
+        Sala sala = salaRepository.buscarPorId(id);
+
+        if (sala == null) {
+            throw new IllegalArgumentException("Sala não encontrada.");
+        }
+
+        sala.desativar();
+
+        return sala;
+    }
+
+    public Sala alterarSala(Long id, String nome, Integer capacidade) {
+
+        if  (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "O ID deve ser maior que zero."
+            );
+        }
+
+        Sala salaBuscadaAlterar = salaRepository.buscarPorId(id);
+        if (salaBuscadaAlterar == null) {
+            throw new IllegalArgumentException(
+                    "Para esse ID não foi encontrado uma sala."
+            );
+        }
+
+        Sala salaComMesmoNome = salaRepository.buscarPorNome(nome);
+        // validação do id representa isso: O nome pertence à própria sala que está sendo alterada ou a outra sala?
+        if (salaComMesmoNome != null && !salaComMesmoNome.getId().equals(id)) {
+            throw new IllegalArgumentException(
+                    "Já existe outra sala cadastrada com esse nome."
+            );
+        }
+
+        salaBuscadaAlterar.alterarDados(nome, capacidade);
+
+        return salaBuscadaAlterar;
     }
 
 }

@@ -37,17 +37,4 @@ public class SalaRepository {
                 .orElse(null);
     }
 
-    public Sala desativarSala(Long id) {
-
-        Sala sala = buscarPorId(id);
-
-        if (sala == null) {
-            return null;
-        }
-
-        sala.desativar();
-
-        return sala;
-    }
-
 }

@@ -8,11 +8,11 @@ public class Sala {
 
     public Sala(String nome, Integer capacidade) {
         if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Nome vazio");
+            throw new IllegalArgumentException("O nome da sala é obrigatório.");
         }
 
         if  (capacidade == null || capacidade <= 0) {
-            throw new IllegalArgumentException("Capacidade menor que ou igual a zero ou nula");
+            throw new IllegalArgumentException("A capacidade da sala deve ser maior que zero.");
         }
 
         this.nome = nome;
@@ -38,11 +38,11 @@ public class Sala {
 
     public void atribuirId(Long id) {
         if (this.id != null) {
-            throw  new IllegalArgumentException("A sala já possui um ID.");
+            throw  new IllegalStateException("A sala já possui um ID.");
         }
 
         if (id == null || id <= 0) {
-            throw new IllegalArgumentException("O ID deve ser mairo que zero.");
+            throw new IllegalArgumentException("O ID deve ser maior que zero.");
         }
 
         this.id = id;
@@ -55,6 +55,29 @@ public class Sala {
         }
 
         this.ativa = false;
+    }
+
+    public void alterarDados(String nome, Integer capacidade) {
+        if (!this.ativa) {
+            throw new IllegalStateException(
+                    "Não é possível alterar uma sala desativada."
+            );
+        }
+
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Nome não pode ser nulo ou estar em branco."
+            );
+        }
+
+        if  (capacidade == null || capacidade <= 0) {
+            throw new IllegalArgumentException(
+                    "A capacidade deve ser maior que zero."
+            );
+        }
+
+        this.nome = nome;
+        this.capacidade = capacidade;
     }
 
     @Override

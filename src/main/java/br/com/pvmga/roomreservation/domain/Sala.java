@@ -4,7 +4,7 @@ public class Sala {
     private Long id;
     private String nome;
     private Integer capacidade;
-    private Boolean ativa;
+    private boolean ativa;
 
     public Sala(String nome, Integer capacidade) {
         if (nome == null || nome.isBlank()) {
@@ -20,7 +20,7 @@ public class Sala {
         this.ativa = true;
     }
 
-    public Boolean getAtiva() {
+    public boolean getAtiva() {
         return ativa;
     }
 

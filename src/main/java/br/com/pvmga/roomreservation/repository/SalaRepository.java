@@ -19,8 +19,14 @@ public class SalaRepository {
         return sala;
     }
 
+    // Isso permite que uma classe externa modifique diretamente a lista:
+    // salaService.listarSalas().clear();
+//    public List<Sala> listar() {
+//        return salas;
+//    }
+
     public List<Sala> listar() {
-        return salas;
+        return new ArrayList<>(salas);
     }
 
     public Sala buscarPorId(Long id) {

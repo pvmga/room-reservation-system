@@ -14,30 +14,17 @@ public class RoomReservationApplication {
 
         Sala salaCadastrada =
                 salaService.cadastrarSala(new Sala("Sala Azul", 20));
-
-        if (salaCadastrada == null) {
-            System.out.println("Sala já cadastrada!");
-        } else {
-            //System.out.println(salaCadastrada);
-        }
+        //System.out.println(salaCadastrada);
 
         Sala salaCadastradaTwo =
                 salaService.cadastrarSala(new Sala("Sala Verde", 21));
+        //System.out.println(salaCadastradaTwo);
 
-        if (salaCadastradaTwo == null) {
-            System.out.println("Sala já cadastrada!");
-        } else {
-            //System.out.println(salaCadastradaTwo);
-        }
 
         Sala salaCadastradaThree =
                 salaService.cadastrarSala(new Sala("Sala Roxa", 21));
+        //System.out.println(salaCadastradaThree);
 
-        if (salaCadastradaThree == null) {
-            System.out.println("Sala já cadastrada!");
-        } else {
-            //System.out.println(salaCadastradaThree);
-        }
 
         // buscar por id
         Sala salaBuscadaPorId = salaService.buscarPorId(22L);
@@ -71,10 +58,10 @@ public class RoomReservationApplication {
 
         // bloco de teste
         Sala salaReativada = salaService.reativarSala(1L);
-        System.out.println("Sala reativada: " + salaReativada);
+        //System.out.println("Sala reativada: " + salaReativada);
 
-        Sala salaReativadaNovamente = salaService.reativarSala(1L);
-        System.out.println(salaReativadaNovamente);
+//        Sala salaReativadaNovamente = salaService.reativarSala(1L);
+//        System.out.println(salaReativadaNovamente);
 
 
         // listar todas as salas

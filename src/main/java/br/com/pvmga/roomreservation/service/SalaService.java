@@ -17,7 +17,9 @@ public class SalaService {
         Sala salaExistente = salaRepository.buscarPorNome(sala.getNome());
 
         if (salaExistente != null) {
-            return null;
+            throw new IllegalArgumentException(
+                    "Já existe uma sala cadastrada com esse nome."
+            );
         }
 
         return salaRepository.salvar(sala);
@@ -84,12 +86,6 @@ public class SalaService {
         if (sala == null) {
             throw new IllegalArgumentException(
                     "Não foi encontrada uma sala para o ID informado."
-            );
-        }
-
-        if (!sala.getAtiva()) {
-            throw new IllegalStateException(
-                    "Não é possível alterar uma sala desativada."
             );
         }
 

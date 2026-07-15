@@ -60,10 +60,16 @@ public class SalaService {
             );
         }
 
-        Sala salaBuscadaAlterar = salaRepository.buscarPorId(id);
-        if (salaBuscadaAlterar == null) {
+        Sala sala = salaRepository.buscarPorId(id);
+        if (sala == null) {
             throw new IllegalArgumentException(
-                    "Para esse ID não foi encontrado uma sala."
+                    "Não foi encontrada uma sala para o ID informado."
+            );
+        }
+
+        if (!sala.getAtiva()) {
+            throw new IllegalStateException(
+                    "Não é possível alterar uma sala desativada."
             );
         }
 
@@ -75,9 +81,9 @@ public class SalaService {
             );
         }
 
-        salaBuscadaAlterar.alterarDados(nome, capacidade);
+        sala.alterarDados(nome, capacidade);
 
-        return salaBuscadaAlterar;
+        return sala;
     }
 
 }

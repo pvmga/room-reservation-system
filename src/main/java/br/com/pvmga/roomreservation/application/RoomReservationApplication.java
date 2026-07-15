@@ -54,7 +54,7 @@ public class RoomReservationApplication {
         // bloco de teste
         salaService.alterarSala(3L, "Sala Executiva", 20);
         salaService.alterarSala(3L, "Sala Executiva", 22);
-        salaService.alterarSala(3L, "Sala Rosa", 20);
+        salaService.alterarSala(3L, "Sala Rosa", 22);
 
         // bloco de teste
         Sala salaReativada = salaService.reativarSala(1L);
@@ -73,5 +73,8 @@ public class RoomReservationApplication {
         } else {
             salas.forEach(System.out::println);
         }
+
+        List<Sala> buscarSalasDisponiveisPorCapacidade = salaService.buscarSalasDisponiveisPorCapacidade(20);
+        System.out.println(buscarSalasDisponiveisPorCapacidade);
     }
 }

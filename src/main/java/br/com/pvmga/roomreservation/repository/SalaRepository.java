@@ -44,4 +44,13 @@ public class SalaRepository {
                 .orElse(null);
     }
 
+    public List<Sala> buscarSalasDisponiveisPorCapacidade(
+            Integer capacidadeMinima
+    ) {
+        return salas.stream()
+                .filter(Sala::getAtiva)
+                .filter(sala -> sala.getCapacidade() >= capacidadeMinima)
+                .toList();
+    }
+
 }

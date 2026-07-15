@@ -102,4 +102,14 @@ public class SalaService {
         return sala;
     }
 
+    public List<Sala> buscarSalasDisponiveisPorCapacidade(
+            Integer capacidadeMinima
+    ) {
+        if (capacidadeMinima == null || capacidadeMinima <= 0) {
+            throw new IllegalArgumentException("A capacidade mínima deve ser maior que zero.");
+        }
+
+        return salaRepository.buscarSalasDisponiveisPorCapacidade(capacidadeMinima);
+    }
+
 }

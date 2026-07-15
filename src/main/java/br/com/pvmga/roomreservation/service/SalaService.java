@@ -52,6 +52,26 @@ public class SalaService {
         return sala;
     }
 
+    public Sala reativarSala(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "O ID deve ser maior que zero."
+            );
+        }
+
+        Sala sala = salaRepository.buscarPorId(id);
+
+        if (sala == null) {
+            throw new IllegalArgumentException(
+                    "Não foi encontrada uma sala para o ID informado."
+            );
+        }
+
+        sala.reativar();
+
+        return sala;
+    }
+
     public Sala alterarSala(Long id, String nome, Integer capacidade) {
 
         if  (id == null || id <= 0) {

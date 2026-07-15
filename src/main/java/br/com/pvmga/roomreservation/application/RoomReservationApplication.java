@@ -18,7 +18,7 @@ public class RoomReservationApplication {
         if (salaCadastrada == null) {
             System.out.println("Sala já cadastrada!");
         } else {
-            System.out.println(salaCadastrada);
+            //System.out.println(salaCadastrada);
         }
 
         Sala salaCadastradaTwo =
@@ -27,7 +27,7 @@ public class RoomReservationApplication {
         if (salaCadastradaTwo == null) {
             System.out.println("Sala já cadastrada!");
         } else {
-            System.out.println(salaCadastradaTwo);
+            //System.out.println(salaCadastradaTwo);
         }
 
         Sala salaCadastradaThree =
@@ -36,8 +36,46 @@ public class RoomReservationApplication {
         if (salaCadastradaThree == null) {
             System.out.println("Sala já cadastrada!");
         } else {
-            System.out.println(salaCadastradaThree);
+            //System.out.println(salaCadastradaThree);
         }
+
+        // buscar por id
+        Sala salaBuscadaPorId = salaService.buscarPorId(22L);
+
+        if (salaBuscadaPorId == null) {
+            System.out.println("Sala não localizada");
+        } else {
+            //System.out.println(salaBuscadaPorId);
+        }
+
+        // buscar por nome
+        Sala salaBuscadaPorNome = salaService.buscarPorNome("Sala Verde");
+
+        if (salaBuscadaPorNome == null) {
+            System.out.println("Sala não localizada");
+        }  else {
+            //System.out.println(salaBuscadaPorNome);
+        }
+
+
+        // // bloco de teste
+        Sala salaDesativada = salaService.desativarSala(1L);
+        //System.out.println("Sala desativada: " + salaDesativada);
+        Sala salaDesativada2 = salaService.desativarSala(2L);
+        //System.out.println("Sala desativada: " + salaDesativada2 );
+
+        // bloco de teste
+        salaService.alterarSala(3L, "Sala Executiva", 20);
+        salaService.alterarSala(3L, "Sala Executiva", 22);
+        salaService.alterarSala(3L, "Sala Rosa", 20);
+
+        // bloco de teste
+        Sala salaReativada = salaService.reativarSala(1L);
+        System.out.println("Sala reativada: " + salaReativada);
+
+        Sala salaReativadaNovamente = salaService.reativarSala(1L);
+        System.out.println(salaReativadaNovamente);
+
 
         // listar todas as salas
         List<Sala> salas = salaService.listarSalas();
@@ -47,33 +85,5 @@ public class RoomReservationApplication {
         } else {
             salas.forEach(System.out::println);
         }
-
-        // buscar por id
-        Sala salaBuscadaPorId = salaService.buscarPorId(22L);
-
-        if (salaBuscadaPorId == null) {
-            System.out.println("Sala não localizada");
-        } else {
-            System.out.println(salaBuscadaPorId);
-        }
-
-        // buscar por nome
-        Sala salaBuscadaPorNome = salaService.buscarPorNome("Sala Verde");
-
-        if (salaBuscadaPorNome == null) {
-            System.out.println("Sala não localizada");
-        }  else {
-            System.out.println(salaBuscadaPorNome);
-        }
-
-        // desativar por id
-        Sala salaDesativada = salaService.desativarSala(1L);
-        System.out.println("Sala desativada: " + salaDesativada);
-        Sala salaDesativada2 = salaService.desativarSala(2L);
-        System.out.println("Sala desativada: " + salaDesativada2 );
-
-        salaService.alterarSala(3L, "Sala Executiva", 20);
-        salaService.alterarSala(3L, "Sala Executiva", 22);
-        salaService.alterarSala(3L, "Sala Verde", 20);
     }
 }

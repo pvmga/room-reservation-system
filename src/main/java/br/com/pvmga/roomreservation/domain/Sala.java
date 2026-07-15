@@ -57,6 +57,16 @@ public class Sala {
         this.ativa = false;
     }
 
+    public void reativar() {
+        if (this.ativa) {
+            throw new IllegalStateException(
+                    "A sala já está ativa."
+            );
+        }
+
+        this.ativa = true;
+    }
+
     public void alterarDados(String nome, Integer capacidade) {
         if (!this.ativa) {
             throw new IllegalStateException(

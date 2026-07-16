@@ -1,6 +1,7 @@
 package br.com.pvmga.roomreservation.repository;
 
 import br.com.pvmga.roomreservation.domain.Sala;
+import br.com.pvmga.roomreservation.repository.filter.SalaFiltro;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -45,23 +46,52 @@ public class SalaRepository {
                 .orElse(null);
     }
 
-    public List<Sala> buscarSalasDisponiveisPorCapacidade(
-            Integer capacidadeMinima
-    ) {
-        return salas.stream()
-                .filter(Sala::getAtiva)
-                .filter(sala -> sala.getCapacidade() >= capacidadeMinima)
-                .sorted(Comparator.comparing(Sala::getCapacidade))
-                .toList();
-    }
+//    public List<Sala> buscarSalasDisponiveisPorCapacidade(
+//            Integer capacidadeMinima
+//    ) {
+//        return salas.stream()
+//                .filter(Sala::getAtiva)
+//                .filter(sala -> sala.getCapacidade() >= capacidadeMinima)
+//                .sorted(Comparator.comparing(Sala::getCapacidade))
+//                .toList();
+//    }
+//
+//    public List<Sala> buscarSalasDisponiveisPorIntervaloDeCapacidade(
+//            Integer capacidadeMinima,
+//            Integer capacidadeMaxima
+//    ) {
+//        return salas.stream()
+//                .filter(Sala::getAtiva)
+//                .filter(sala -> sala.getCapacidade() >= capacidadeMinima && sala.getCapacidade() <= capacidadeMaxima)
+//                .sorted(Comparator.comparing(Sala::getCapacidade))
+//                .toList();
+//    }
 
-    public List<Sala> buscarSalasDisponiveisPorIntervaloDeCapacidade(
-            Integer capacidadeMinima,
-            Integer capacidadeMaxima
+    public List<Sala> buscarSalas(
+            SalaFiltro filtro
     ) {
+
+        String nomePesquisa = filtro.getNome() == null ? null : filtro.getNome().toLowerCase();
+
         return salas.stream()
-                .filter(Sala::getAtiva)
-                .filter(sala -> sala.getCapacidade() >= capacidadeMinima && sala.getCapacidade() <= capacidadeMaxima)
+                .filter(sala -> filtro.getNome() == null
+                        || nomePesquisa.isBlank()
+                        || sala.getNome()
+                                .toLowerCase()
+                                .contains(nomePesquisa)
+                )
+                .filter(sala ->
+                        filtro.getAtiva() == null
+                                || sala.getAtiva() == filtro.getAtiva()
+                )
+                .filter(sala ->
+                        filtro.getCapacidadeMinima() == null
+                                || sala.getCapacidade() >= filtro.getCapacidadeMinima()
+                )
+                .filter(sala ->
+                        filtro.getCapacidadeMaxima() == null
+                                || sala.getCapacidade() <= filtro.getCapacidadeMaxima()
+                )
                 .sorted(Comparator.comparing(Sala::getCapacidade))
                 .toList();
     }

@@ -2,6 +2,7 @@ package br.com.pvmga.roomreservation.application;
 
 import br.com.pvmga.roomreservation.domain.Sala;
 import br.com.pvmga.roomreservation.repository.SalaRepository;
+import br.com.pvmga.roomreservation.repository.filter.SalaFiltro;
 import br.com.pvmga.roomreservation.service.SalaService;
 
 import java.util.List;
@@ -74,6 +75,7 @@ public class RoomReservationApplication {
             salas.forEach(System.out::println);
         }
 
+        // bloco de teste
         List<Sala> buscarSalasDisponiveisPorCapacidade =
                 salaService.buscarSalasDisponiveisPorCapacidade(19);
         System.out.println(buscarSalasDisponiveisPorCapacidade);
@@ -81,5 +83,22 @@ public class RoomReservationApplication {
         List<Sala> buscarSalasDisponiveisPorIntervaloDeCapacidade =
                 salaService.buscarSalasDisponiveisPorIntervaloDeCapacidade(20, 21);
         System.out.println(buscarSalasDisponiveisPorIntervaloDeCapacidade);
+
+        // bloco de teste
+        // Todas as salas
+        //new SalaFiltro(null, null, null, null);
+        // Somente ativas
+        //new SalaFiltro(null, null, null, true);
+        // Nome parcial
+        //new SalaFiltro("reunião", null, null, null);
+        SalaFiltro filtro = new SalaFiltro(
+                null,
+                10,
+                30,
+                true
+        );
+        List<Sala> salasFiltradas = salaService.buscarSalas(filtro);
+
+        System.out.println(salasFiltradas);
     }
 }

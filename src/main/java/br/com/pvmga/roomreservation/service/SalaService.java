@@ -2,6 +2,7 @@ package br.com.pvmga.roomreservation.service;
 
 import br.com.pvmga.roomreservation.domain.Sala;
 import br.com.pvmga.roomreservation.repository.SalaRepository;
+import br.com.pvmga.roomreservation.repository.filter.SalaFiltro;
 
 import java.util.List;
 
@@ -105,39 +106,60 @@ public class SalaService {
     public List<Sala> buscarSalasDisponiveisPorCapacidade(
             Integer capacidadeMinima
     ) {
-        if (capacidadeMinima == null || capacidadeMinima <= 0) {
-            throw new IllegalArgumentException("A capacidade mínima deve ser maior que zero.");
-        }
+        SalaFiltro filtro = new SalaFiltro(
+                null,
+                capacidadeMinima,
+                null,
+                true
+        );
 
-        return salaRepository.buscarSalasDisponiveisPorCapacidade(capacidadeMinima);
+        return buscarSalas(filtro);
     }
 
     public List<Sala> buscarSalasDisponiveisPorIntervaloDeCapacidade(
             Integer capacidadeMinima,
             Integer capacidadeMaxima
     ) {
-        if (capacidadeMinima == null || capacidadeMinima <= 0) {
+        SalaFiltro filtro = new SalaFiltro(
+                null,
+                capacidadeMinima,
+                capacidadeMaxima,
+                true
+        );
+
+        return buscarSalas(filtro);
+    }
+
+    public List<Sala> buscarSalas(
+            SalaFiltro filtro
+    ) {
+        if  (filtro == null) {
+            throw new IllegalArgumentException(
+                    "O filtro de salas é obrigatório."
+            );
+        }
+
+        if (filtro.getCapacidadeMinima() != null && filtro.getCapacidadeMinima() <= 0) {
             throw new IllegalArgumentException(
                     "A capacidade mínima deve ser maior que zero."
             );
         }
 
-        if (capacidadeMaxima == null || capacidadeMaxima <= 0) {
+        if (filtro.getCapacidadeMaxima() != null && filtro.getCapacidadeMaxima() <= 0) {
             throw new IllegalArgumentException(
                     "A capacidade máxima deve ser maior que zero."
             );
         }
 
-        if (capacidadeMinima > capacidadeMaxima) {
+        if (filtro.getCapacidadeMinima() != null
+                && filtro.getCapacidadeMaxima() != null
+                && filtro.getCapacidadeMinima() > filtro.getCapacidadeMaxima()) {
             throw new IllegalArgumentException(
                     "A capacidade mínima não pode ser maior que a capacidade máxima."
             );
         }
 
-        return salaRepository.buscarSalasDisponiveisPorIntervaloDeCapacidade(
-                capacidadeMinima,
-                capacidadeMaxima
-        );
+        return  salaRepository.buscarSalas(filtro);
     }
 
 }

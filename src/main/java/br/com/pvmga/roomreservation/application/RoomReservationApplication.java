@@ -1,10 +1,14 @@
 package br.com.pvmga.roomreservation.application;
 
+import br.com.pvmga.roomreservation.domain.Reserva;
 import br.com.pvmga.roomreservation.domain.Sala;
+import br.com.pvmga.roomreservation.repository.ReservaRepository;
 import br.com.pvmga.roomreservation.repository.SalaRepository;
 import br.com.pvmga.roomreservation.repository.filter.SalaFiltro;
+import br.com.pvmga.roomreservation.service.ReservaService;
 import br.com.pvmga.roomreservation.service.SalaService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RoomReservationApplication {
@@ -100,5 +104,15 @@ public class RoomReservationApplication {
         List<Sala> salasFiltradas = salaService.buscarSalas(filtro);
 
         System.out.println(salasFiltradas);
+
+        ReservaRepository reservaRepository = new ReservaRepository();
+        ReservaService reservaService = new ReservaService(salaRepository, reservaRepository);
+
+        Reserva reserva = reservaService.cadastrarReserva(
+                salaCadastrada.getId(),
+                LocalDateTime.of(2026, 7, 21, 9, 0),
+                LocalDateTime.of(2026, 7, 21, 10, 0)
+        );
+
     }
 }

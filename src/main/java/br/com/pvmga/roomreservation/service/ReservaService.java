@@ -67,15 +67,7 @@ public class ReservaService {
     }
 
     public Reserva cancelarReserva(Long reservaId) {
-        if (reservaId == null || reservaId <= 0) {
-            throw new IllegalArgumentException("O ID da reserva deve ser maior que zero.");
-        }
-
-        Reserva reserva = reservaRepository.buscarPorId(reservaId);
-
-        if (reserva == null) {
-            throw new IllegalArgumentException("Reserva não encontrada.");
-        }
+        Reserva reserva = buscarReservaPorId(reservaId);
 
         reserva.cancelar();
 
@@ -83,15 +75,7 @@ public class ReservaService {
     }
 
     public Reserva reativarReserva(Long reservaId) {
-        if (reservaId == null || reservaId <= 0) {
-            throw new IllegalArgumentException("O ID da reserva deve ser maior que zero.");
-        }
-
-        Reserva reserva = reservaRepository.buscarPorId(reservaId);
-
-        if (reserva == null) {
-            throw new IllegalArgumentException("Reserva não encontrada.");
-        }
+        Reserva reserva = buscarReservaPorId(reservaId);
 
         boolean existeConflito = reservaRepository.existeConflito(
                 reserva.getSala().getId(),
@@ -108,6 +92,52 @@ public class ReservaService {
         reserva.reativar();
 
         return reserva;
+    }
+
+    public Reserva buscarReservaPorId(Long reservaId) {
+        if (reservaId == null || reservaId <= 0) {
+            throw new IllegalArgumentException(
+                    "O ID da reserva deve ser maior que zero."
+            );
+        }
+
+        Reserva reserva = reservaRepository.buscarPorId(reservaId);
+
+        if (reserva == null) {
+            throw new IllegalArgumentException(
+                    "Reserva não encontrada."
+            );
+        }
+
+        return reserva;
+    }
+
+    public List<Reserva> buscarReservasPorSala(Long salaId) {
+
+        if (salaId == null || salaId <= 0) {
+            throw new IllegalArgumentException(
+                    "O ID da sala deve ser maior que zero."
+            );
+        }
+
+        Sala sala = salaRepository.buscarPorId(salaId);
+
+        if (sala == null) {
+            throw new IllegalArgumentException(
+                    "Sala não encontrada."
+            );
+        }
+
+        return reservaRepository.buscarPorSala(salaId);
+    }
+
+    public List<Reserva> buscarReservasPorPeriodo(
+            LocalDateTime inicio,
+            LocalDateTime fim
+    ) {
+        Reserva.validarPeriodo(inicio, fim);
+
+        return reservaRepository.buscarPorPeriodo(inicio, fim);
     }
 
 }

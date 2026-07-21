@@ -122,9 +122,6 @@ public class RoomReservationApplication {
 //                LocalDateTime.of(2026, 8, 21, 10, 0)
 //        );
 
-
-        System.out.println(reservaService.listarReservas());
-
         // bloco de teste CANCELAR
 //        Reserva reservaCancelada = reservaService.cancelarReserva(reserva.getId());
 //        System.out.println(reservaCancelada);
@@ -145,6 +142,17 @@ public class RoomReservationApplication {
         );
 
         reservaService.reativarReserva(reserva1.getId());
+
+        // bloco de teste BUSCAR POR ID
+        Reserva reservaEncontrada =
+                reservaService.buscarReservaPorId(reserva1.getId());
+
+        System.out.println("Reserva Filtrada: " + reservaEncontrada);
+
+        // teste buscar Reserva Por Sala
+        System.out.println(
+                reservaService.buscarReservasPorSala(salaCadastrada.getId())
+        );
 
         System.out.println(reservaService.listarReservas());
 

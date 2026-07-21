@@ -10,21 +10,10 @@ public class Reserva {
     private ReservaStatus status;
 
     public Reserva(Sala sala, LocalDateTime inicio, LocalDateTime fim) {
+        validarPeriodo(inicio, fim);
 
         if (sala == null) {
             throw new IllegalArgumentException("A sala é obrigatória.");
-        }
-
-        if (inicio == null) {
-            throw new IllegalArgumentException("A data e hora de inicio são obrigatórias.");
-        }
-
-        if (fim == null) {
-            throw new IllegalArgumentException("A data e hora de término são obrigatórias.");
-        }
-
-        if (!fim.isAfter(inicio)) {
-            throw new IllegalArgumentException("O término da reserva deve ser posterior ao início");
         }
 
         this.sala = sala;
@@ -59,6 +48,23 @@ public class Reserva {
         }
 
         status = ReservaStatus.ATIVA;
+    }
+
+    public static void validarPeriodo(
+            LocalDateTime inicio,
+            LocalDateTime fim
+    ) {
+        if (inicio == null || fim == null) {
+            throw new IllegalArgumentException(
+                    "Data e hora de início e fim são obrigatórias."
+            );
+        }
+
+        if (!inicio.isBefore(fim)) {
+            throw new IllegalArgumentException(
+                    "A data/hora de início deve ser anterior à data/hora de fim."
+            );
+        }
     }
 
     public Long getId() {

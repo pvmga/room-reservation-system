@@ -45,4 +45,23 @@ public class ReservaRepository {
                                 && fim.isAfter(reserva.getInicio())
                 );
     }
+
+    public List<Reserva> buscarPorSala(Long salaId) {
+        return reservas.stream()
+                .filter(reserva -> reserva.getSala().getId().equals(salaId))
+                .toList();
+    }
+
+    public List<Reserva> buscarPorPeriodo(
+            LocalDateTime inicio,
+            LocalDateTime fim
+    ) {
+        return reservas.stream()
+                .filter(reserva ->
+                        reserva.getInicio().isBefore(fim)
+                                && reserva.getFim().isAfter(inicio)
+                )
+                .toList();
+    }
+
 }

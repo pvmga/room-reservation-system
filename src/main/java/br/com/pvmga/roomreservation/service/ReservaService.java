@@ -82,4 +82,32 @@ public class ReservaService {
         return reserva;
     }
 
+    public Reserva reativarReserva(Long reservaId) {
+        if (reservaId == null || reservaId <= 0) {
+            throw new IllegalArgumentException("O ID da reserva deve ser maior que zero.");
+        }
+
+        Reserva reserva = reservaRepository.buscarPorId(reservaId);
+
+        if (reserva == null) {
+            throw new IllegalArgumentException("Reserva não encontrada.");
+        }
+
+        boolean existeConflito = reservaRepository.existeConflito(
+                reserva.getSala().getId(),
+                reserva.getInicio(),
+                reserva.getFim()
+        );
+
+        if (existeConflito) {
+            throw new IllegalStateException(
+                    "Não é possível reativar a reserva porque existe conflito de horário."
+            );
+        }
+
+        reserva.reativar();
+
+        return reserva;
+    }
+
 }

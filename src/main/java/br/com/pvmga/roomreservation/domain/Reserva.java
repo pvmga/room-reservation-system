@@ -53,6 +53,14 @@ public class Reserva {
         status = ReservaStatus.CANCELADA;
     }
 
+    public void reativar() {
+        if (status == ReservaStatus.ATIVA) {
+            throw new IllegalStateException("A reserva já está ativa.");
+        }
+
+        status = ReservaStatus.ATIVA;
+    }
+
     public Long getId() {
         return id;
     }

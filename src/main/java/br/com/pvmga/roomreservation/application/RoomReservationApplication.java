@@ -88,7 +88,8 @@ public class RoomReservationApplication {
                 salaService.buscarSalasDisponiveisPorIntervaloDeCapacidade(20, 21);
         System.out.println(buscarSalasDisponiveisPorIntervaloDeCapacidade);
 
-        // bloco de teste
+        // bloco de teste FILTRAR
+
         // Todas as salas
         //new SalaFiltro(null, null, null, null);
         // Somente ativas
@@ -105,29 +106,47 @@ public class RoomReservationApplication {
 
         System.out.println(salasFiltradas);
 
-        // bloco de teste
+        // bloco de teste CADASTRAR RESERVA
         ReservaRepository reservaRepository = new ReservaRepository();
         ReservaService reservaService = new ReservaService(salaRepository, reservaRepository);
+//
+//        Reserva reserva = reservaService.cadastrarReserva(
+//                salaCadastrada.getId(),
+//                LocalDateTime.of(2026, 7, 21, 9, 0),
+//                LocalDateTime.of(2026, 7, 21, 10, 0)
+//        );
+//
+//        Reserva reserva2 = reservaService.cadastrarReserva(
+//                salaCadastrada.getId(),
+//                LocalDateTime.of(2026, 8, 21, 9, 0),
+//                LocalDateTime.of(2026, 8, 21, 10, 0)
+//        );
 
-        Reserva reserva = reservaService.cadastrarReserva(
+
+        System.out.println(reservaService.listarReservas());
+
+        // bloco de teste CANCELAR
+//        Reserva reservaCancelada = reservaService.cancelarReserva(reserva.getId());
+//        System.out.println(reservaCancelada);
+
+        // bloco de teste CANCELAR DEPOIS REATIVAR
+        Reserva reserva1 = reservaService.cadastrarReserva(
                 salaCadastrada.getId(),
                 LocalDateTime.of(2026, 7, 21, 9, 0),
                 LocalDateTime.of(2026, 7, 21, 10, 0)
         );
 
-        Reserva reserva2 = reservaService.cadastrarReserva(
+        reservaService.cancelarReserva(reserva1.getId());
+
+        Reserva reserva3 = reservaService.cadastrarReserva(
                 salaCadastrada.getId(),
-                LocalDateTime.of(2026, 8, 21, 9, 0),
-                LocalDateTime.of(2026, 8, 21, 10, 0)
+                LocalDateTime.of(2026, 9, 21, 9, 0),
+                LocalDateTime.of(2026, 9, 21, 10, 0)
         );
 
+        reservaService.reativarReserva(reserva1.getId());
 
         System.out.println(reservaService.listarReservas());
-
-        // bloco de teste
-        Reserva reservaCancelada = reservaService.cancelarReserva(reserva.getId());
-
-        System.out.println(reservaCancelada);
 
     }
 }

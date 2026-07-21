@@ -114,5 +114,11 @@ public class RoomReservationApplication {
                 LocalDateTime.of(2026, 7, 21, 10, 0)
         );
 
+        Reserva reserva2 = reservaService.cadastrarReserva(
+                salaCadastrada.getId(),
+                LocalDateTime.of(2026, 7, 21, 9, 0),
+                LocalDateTime.of(2026, 7, 21, 10, 0)
+        );
+
     }
 }

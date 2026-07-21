@@ -51,6 +51,12 @@ public class ReservaService {
                 fim
         );
 
+        if (reservaRepository.existeConflito(salaId, inicio, fim)) {
+            throw new IllegalStateException(
+                    "Já existe uma reserva ativa para esta sala no período informado."
+            );
+        }
+
         return reservaRepository.salvar(reserva);
     }
 }

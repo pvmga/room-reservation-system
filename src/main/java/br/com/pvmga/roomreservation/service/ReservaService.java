@@ -2,8 +2,10 @@ package br.com.pvmga.roomreservation.service;
 
 import br.com.pvmga.roomreservation.domain.Reserva;
 import br.com.pvmga.roomreservation.domain.Sala;
+import br.com.pvmga.roomreservation.domain.Usuario;
 import br.com.pvmga.roomreservation.repository.ReservaRepository;
 import br.com.pvmga.roomreservation.repository.SalaRepository;
+import br.com.pvmga.roomreservation.repository.UsuarioRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,18 +13,22 @@ import java.util.List;
 public class ReservaService {
 
     private final SalaRepository salaRepository;
+    private final UsuarioRepository usuarioRepository;
     private final ReservaRepository reservaRepository;
 
     public ReservaService(
             SalaRepository salaRepository,
+            UsuarioRepository usuarioRepository,
             ReservaRepository reservaRepository
     ) {
         this.salaRepository = salaRepository;
+        this.usuarioRepository = usuarioRepository;
         this.reservaRepository = reservaRepository;
     }
 
     public Reserva cadastrarReserva(
             Long salaId,
+            Long usuarioId,
             LocalDateTime inicio,
             LocalDateTime fim
     ) {
@@ -46,8 +52,20 @@ public class ReservaService {
             );
         }
 
+        validarIdUsuario(usuarioId);
+
+        Usuario usuario = usuarioRepository.buscarPorId(usuarioId);
+
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado.");
+        }
+
+        // Usuários desativados não podem criar reservas.
+        validarUsuarioAtivo(usuario);
+
         Reserva reserva = new Reserva(
                 sala,
+                usuario,
                 inicio,
                 fim
         );
@@ -76,6 +94,9 @@ public class ReservaService {
 
     public Reserva reativarReserva(Long reservaId) {
         Reserva reserva = buscarReservaPorId(reservaId);
+
+        // A reserva só pode voltar a ficar ativa se o usuário estiver ativo.
+        validarUsuarioAtivo(reserva.getUsuario());
 
         boolean existeConflito = reservaRepository.existeConflito(
                 reserva.getSala().getId(),
@@ -131,6 +152,18 @@ public class ReservaService {
         return reservaRepository.buscarPorSala(salaId);
     }
 
+    public List<Reserva> buscarReservasPorUsuario(Long usuarioId) {
+        validarIdUsuario(usuarioId);
+
+        Usuario usuario = usuarioRepository.buscarPorId(usuarioId);
+
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado.");
+        }
+
+        return reservaRepository.buscarPorUsuario(usuarioId);
+    }
+
     public List<Reserva> buscarReservasPorPeriodo(
             LocalDateTime inicio,
             LocalDateTime fim
@@ -138,6 +171,22 @@ public class ReservaService {
         Reserva.validarPeriodo(inicio, fim);
 
         return reservaRepository.buscarPorPeriodo(inicio, fim);
+    }
+
+    private void validarIdUsuario(Long usuarioId) {
+        if (usuarioId == null || usuarioId <= 0) {
+            throw new IllegalArgumentException(
+                    "O ID do usuário deve ser maior que zero."
+            );
+        }
+    }
+
+    private void validarUsuarioAtivo(Usuario usuario) {
+        if (!usuario.getAtivo()) {
+            throw new IllegalStateException(
+                    "Não é possível reservar para um usuário desativado."
+            );
+        }
     }
 
 }

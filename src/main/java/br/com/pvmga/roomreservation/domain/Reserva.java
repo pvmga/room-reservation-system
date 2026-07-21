@@ -5,18 +5,29 @@ import java.time.LocalDateTime;
 public class Reserva {
     private Long id;
     private final Sala sala;
+    private final Usuario usuario;
     private final LocalDateTime inicio;
     private final LocalDateTime fim;
     private ReservaStatus status;
 
-    public Reserva(Sala sala, LocalDateTime inicio, LocalDateTime fim) {
+    public Reserva(
+            Sala sala,
+            Usuario usuario,
+            LocalDateTime inicio,
+            LocalDateTime fim
+    ) {
         validarPeriodo(inicio, fim);
 
         if (sala == null) {
             throw new IllegalArgumentException("A sala é obrigatória.");
         }
 
+        if (usuario == null) {
+            throw new IllegalArgumentException("O usuário é obrigatório.");
+        }
+
         this.sala = sala;
+        this.usuario = usuario;
         this.inicio = inicio;
         this.fim = fim;
         this.status = ReservaStatus.ATIVA;
@@ -75,6 +86,10 @@ public class Reserva {
         return sala;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
     public LocalDateTime getInicio() {
         return inicio;
     }
@@ -92,6 +107,7 @@ public class Reserva {
         return "Reserva{" +
                 "id=" + id +
                 ", sala=" + sala +
+                ", usuario=" + usuario +
                 ", inicio=" + inicio +
                 ", fim=" + fim +
                 ", status=" + status +

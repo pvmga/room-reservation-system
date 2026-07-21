@@ -52,6 +52,14 @@ public class ReservaRepository {
                 .toList();
     }
 
+    public List<Reserva> buscarPorUsuario(Long usuarioId) {
+        return reservas.stream()
+                .filter(reserva ->
+                        reserva.getUsuario().getId().equals(usuarioId)
+                )
+                .toList();
+    }
+
     public List<Reserva> buscarPorPeriodo(
             LocalDateTime inicio,
             LocalDateTime fim

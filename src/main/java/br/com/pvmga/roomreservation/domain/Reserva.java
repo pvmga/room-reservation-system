@@ -45,6 +45,14 @@ public class Reserva {
         this.id = id;
     }
 
+    public void cancelar() {
+        if (status == ReservaStatus.CANCELADA) {
+            throw new IllegalStateException("A reserva já está cancelada.");
+        }
+
+        status = ReservaStatus.CANCELADA;
+    }
+
     public Long getId() {
         return id;
     }

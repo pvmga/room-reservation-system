@@ -6,6 +6,7 @@ import br.com.pvmga.roomreservation.repository.ReservaRepository;
 import br.com.pvmga.roomreservation.repository.SalaRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ReservaService {
 
@@ -59,4 +60,26 @@ public class ReservaService {
 
         return reservaRepository.salvar(reserva);
     }
+
+    public List<Reserva> listarReservas() {
+
+        return reservaRepository.listar();
+    }
+
+    public Reserva cancelarReserva(Long reservaId) {
+        if (reservaId == null || reservaId <= 0) {
+            throw new IllegalArgumentException("O ID da reserva deve ser maior que zero.");
+        }
+
+        Reserva reserva = reservaRepository.buscarPorId(reservaId);
+
+        if (reserva == null) {
+            throw new IllegalArgumentException("Reserva não encontrada.");
+        }
+
+        reserva.cancelar();
+
+        return reserva;
+    }
+
 }

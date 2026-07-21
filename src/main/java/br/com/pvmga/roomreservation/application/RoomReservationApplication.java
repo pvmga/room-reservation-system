@@ -105,6 +105,7 @@ public class RoomReservationApplication {
 
         System.out.println(salasFiltradas);
 
+        // bloco de teste
         ReservaRepository reservaRepository = new ReservaRepository();
         ReservaService reservaService = new ReservaService(salaRepository, reservaRepository);
 
@@ -116,9 +117,17 @@ public class RoomReservationApplication {
 
         Reserva reserva2 = reservaService.cadastrarReserva(
                 salaCadastrada.getId(),
-                LocalDateTime.of(2026, 7, 21, 9, 0),
-                LocalDateTime.of(2026, 7, 21, 10, 0)
+                LocalDateTime.of(2026, 8, 21, 9, 0),
+                LocalDateTime.of(2026, 8, 21, 10, 0)
         );
+
+
+        System.out.println(reservaService.listarReservas());
+
+        // bloco de teste
+        Reserva reservaCancelada = reservaService.cancelarReserva(reserva.getId());
+
+        System.out.println(reservaCancelada);
 
     }
 }
